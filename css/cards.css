@@ -1,0 +1,152 @@
+/* ═══════════════════════════════════════════════════════════
+   FunZone Hub — cards.css
+   Card grid, card components, empty states
+═══════════════════════════════════════════════════════════ */
+
+/* ── GRID ─────────────────────────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 1.2rem;
+}
+
+/* ── CARD ─────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  animation: cardIn .4s ease both;
+  will-change: transform;
+}
+.card:hover { transform: translateY(-5px); }
+
+/* Per-category hover glow */
+.card[data-cat="games"]:hover  { border-color: rgba(255, 94, 91,.45); box-shadow: var(--shadow-glow-game); }
+.card[data-cat="quiz"]:hover   { border-color: rgba(  0,212,170,.45); box-shadow: var(--shadow-glow-quiz); }
+.card[data-cat="comics"]:hover { border-color: rgba(247,201, 72,.45); box-shadow: var(--shadow-glow-comic); }
+.card[data-cat="stories"]:hover{ border-color: rgba(167,139,250,.45); box-shadow: var(--shadow-glow-story); }
+
+/* ── CARD THUMBNAIL ───────────────────────────────────── */
+.card-thumb {
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.4rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.card-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 45%, var(--surface) 100%);
+  pointer-events: none;
+}
+.card[data-cat="games"]  .card-thumb { background: radial-gradient(ellipse at 50% 0%, #3d1515 0%, #1a0808 100%); }
+.card[data-cat="quiz"]   .card-thumb { background: radial-gradient(ellipse at 50% 0%, #0d302a 0%, #06100e 100%); }
+.card[data-cat="comics"] .card-thumb { background: radial-gradient(ellipse at 50% 0%, #302800 0%, #191300 100%); }
+.card[data-cat="stories"].card-thumb  { background: radial-gradient(ellipse at 50% 0%, #1e1040 0%, #0d0820 100%); }
+
+/* ── CARD BODY ────────────────────────────────────────── */
+.card-body { padding: 1rem 1.1rem 1.15rem; }
+
+.card-tag {
+  display: inline-block;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  padding: .18rem .58rem;
+  border-radius: var(--r-pill);
+  margin-bottom: .48rem;
+}
+.card[data-cat="games"]  .card-tag { background: rgba(255, 94, 91,.15); color: var(--game); }
+.card[data-cat="quiz"]   .card-tag { background: rgba(  0,212,170,.15); color: var(--quiz); }
+.card[data-cat="comics"] .card-tag { background: rgba(247,201, 72,.15); color: var(--comic); }
+.card[data-cat="stories"].card-tag  { background: rgba(167,139,250,.15); color: var(--story); }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: .35rem;
+  color: var(--text);
+}
+.card-desc {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: .88rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── CARD FOOTER ──────────────────────────────────────── */
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.card-meta { display: flex; gap: .55rem; font-size: .72rem; color: var(--muted); flex-wrap: wrap; }
+.card-meta span { display: flex; align-items: center; gap: .18rem; }
+
+.card-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  text-decoration: none;
+  font-size: .73rem;
+  font-weight: 800;
+  padding: .32rem .78rem;
+  border-radius: var(--r-sm);
+  border: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card[data-cat="games"]  .card-visit { background: rgba(255, 94, 91,.14); color: var(--game); }
+.card[data-cat="quiz"]   .card-visit { background: rgba(  0,212,170,.14); color: var(--quiz); }
+.card[data-cat="comics"] .card-visit { background: rgba(247,201, 72,.14); color: var(--comic); }
+.card[data-cat="stories"].card-visit  { background: rgba(167,139,250,.14); color: var(--story); }
+.card-visit:hover { filter: brightness(1.25); transform: scale(1.04); }
+
+/* ── ADMIN DELETE BUTTON ON CARD ──────────────────────── */
+.card-del {
+  display: none;
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 10;
+  background: rgba(255,68,85,.88);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: .2rem .55rem;
+  font-size: .7rem;
+  font-weight: 800;
+  font-family: var(--font-body);
+  transition: background var(--transition);
+  backdrop-filter: blur(4px);
+}
+.card-del:hover { background: var(--danger); }
+body.admin-active .card-del { display: block; }
+
+/* ── EMPTY STATE ──────────────────────────────────────── */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--r-lg);
+  color: var(--muted);
+}
+.empty-icon { font-size: 2.6rem; margin-bottom: .75rem; }
+.empty-state p { font-size: .88rem; line-height: 1.6; }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width:600px) {
+  .cards-grid { grid-template-columns: 1fr; }
+}
