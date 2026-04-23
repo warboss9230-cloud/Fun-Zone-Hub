@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src *; img-src 'self' data: https:;" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>FunZone Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand" id="logoTapZone" role="button" tabindex="0" aria-label="FunZone Hub Logo">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-text">FunZone Hub</span>
+      <span class="tap-hint" id="tapHint" aria-hidden="true"></span>
+    </div>
+    <ul class="nav-links" role="list">
+      <li><button class="nav-link active" data-filter="all">सभी</button></li>
+      <li><button class="nav-link" data-filter="games">🎮 Games</button></li>
+      <li><button class="nav-link" data-filter="quiz">🧠 Quiz</button></li>
+      <li><button class="nav-link" data-filter="comics">💥 Comics</button></li>
+      <li><button class="nav-link" data-filter="stories">📖 Stories</button></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="sb-pill" id="sbPill" aria-live="polite">
+        <span class="sb-dot" id="sbDot"></span>
+        <span id="sbText">DB</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Active Banner -->
+  <div class="admin-banner" id="adminBanner" role="alert" aria-live="polite" hidden>
+    <span>🛡️ Admin Mode — <strong>Harendra</strong></span>
+    <div class="admin-banner-actions">
+      <button class="abtn" id="openAdminBtn">⚙️ Manage</button>
+      <button class="abtn danger" id="logoutBtn">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ════════════════════════════════════ -->
+  <header class="hero" role="banner">
+    <p class="hero-badge" aria-label="Entertainment Hub">🎉 Your Entertainment Universe</p>
+    <h1 class="hero-title">
+      सब कुछ एक जगह —
+      <span class="hero-highlight">खेलो, सीखो, पढ़ो!</span>
+    </h1>
+    <p class="hero-sub">Games, Quiz, Comics और Stories की अपनी favourite websites यहाँ enjoy करो।</p>
+    <div class="hero-stats" role="group" aria-label="Statistics">
+      <div class="stat"><span class="stat-num" id="totalCount">0</span><span class="stat-label">Websites</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Categories</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Fun</span></div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       FILTER TABS
+  ════════════════════════════════════ -->
+  <div class="filter-bar" role="tablist" aria-label="Category filter">
+    <button class="filter-tab active" role="tab" aria-selected="true" data-cat="all">
+      <span class="fdot rainbow"></span> सभी
+    </button>
+    <button class="filter-tab" role="tab" aria-selected="false" data-cat="games">
+      <span class="fdot game-dot"></span> 🎮 Games
+    </button>
+    <button class="filter-tab" role="tab" aria-selected="false" data-cat="quiz">
+      <span class="fdot quiz-dot"></span> 🧠 Quiz
+    </button>
+    <button class="filter-tab" role="tab" aria-selected="false" data-cat="comics">
+      <span class="fdot comic-dot"></span> 💥 Comics
+    </button>
+    <button class="filter-tab" role="tab" aria-selected="false" data-cat="stories">
+      <span class="fdot story-dot"></span> 📖 Stories
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       CONTENT SECTIONS
+  ════════════════════════════════════ -->
+  <main class="site-main" id="siteMain" role="main">
+
+    <section class="cat-section" id="sec-games" aria-label="Games" data-category="games">
+      <div class="sec-head">
+        <h2 class="sec-title"><span class="sec-ico game-ico">🎮</span> Games</h2>
+      </div>
+      <div class="cards-grid" id="grid-games" role="list"></div>
+    </section>
+
+    <section class="cat-section" id="sec-quiz" aria-label="Quiz" data-category="quiz">
+      <div class="sec-head">
+        <h2 class="sec-title"><span class="sec-ico quiz-ico">🧠</span> Quiz</h2>
+      </div>
+      <div class="cards-grid" id="grid-quiz" role="list"></div>
+    </section>
+
+    <section class="cat-section" id="sec-comics" aria-label="Comics" data-category="comics">
+      <div class="sec-head">
+        <h2 class="sec-title"><span class="sec-ico comic-ico">💥</span> Comics</h2>
+      </div>
+      <div class="cards-grid" id="grid-comics" role="list"></div>
+    </section>
+
+    <section class="cat-section" id="sec-stories" aria-label="Stories" data-category="stories">
+      <div class="sec-head">
+        <h2 class="sec-title"><span class="sec-ico story-ico">📖</span> Stories</h2>
+      </div>
+      <div class="cards-grid" id="grid-stories" role="list"></div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <span>⚡ FunZone Hub © 2026</span>
+    <span class="footer-db" id="footerDb"></span>
+  </footer>
+
+  <!-- ═══════════════════════════════════
+       PASSWORD MODAL
+  ════════════════════════════════════ -->
+  <div class="modal-backdrop" id="pwBackdrop" role="dialog" aria-modal="true" aria-labelledby="pwTitle" hidden>
+    <div class="modal pw-modal">
+      <button class="modal-close" id="pwClose" aria-label="Close">✕</button>
+      <div class="pw-icon">🔐</div>
+      <h2 id="pwTitle">Admin Access</h2>
+      <p>Authorized access only. Password enter karo.</p>
+      <div class="pw-dots" id="pwDots" aria-hidden="true"></div>
+      <div class="form-group">
+        <label for="pwInput" class="sr-only">Password</label>
+        <input type="password" id="pwInput" class="form-input" placeholder="Enter password..." autocomplete="off" maxlength="32" />
+      </div>
+      <p class="pw-error" id="pwError" role="alert" aria-live="assertive"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="pwCancelBtn">Cancel</button>
+        <button class="btn btn-admin" id="pwSubmitBtn">🚀 Login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       ADMIN PANEL MODAL
+  ════════════════════════════════════ -->
+  <div class="modal-backdrop" id="adminBackdrop" role="dialog" aria-modal="true" aria-labelledby="adminTitle" hidden>
+    <div class="modal admin-modal">
+      <button class="modal-close" id="adminClose" aria-label="Close admin panel">✕</button>
+      <h2 id="adminTitle">🛡️ Admin Panel</h2>
+      <p class="modal-sub">Websites add, delete aur manage karo.</p>
+
+      <!-- Stats -->
+      <div class="adm-stats" role="group" aria-label="Category counts">
+        <div class="adm-chip game-chip"><span class="chip-n" id="admGames">0</span><span class="chip-l">Games</span></div>
+        <div class="adm-chip quiz-chip"><span class="chip-n" id="admQuiz">0</span><span class="chip-l">Quiz</span></div>
+        <div class="adm-chip comic-chip"><span class="chip-n" id="admComics">0</span><span class="chip-l">Comics</span></div>
+        <div class="adm-chip story-chip"><span class="chip-n" id="admStories">0</span><span class="chip-l">Stories</span></div>
+        <div class="adm-chip visitor-chip"><span class="chip-n" id="admVisitors">0</span><span class="chip-l">👁 Visitors</span></div>
+        <div class="adm-chip sb-chip">
+          <span class="sb-dot sm" id="admSbDot"></span>
+          <span class="chip-l" id="admSbLabel">Supabase</span>
+        </div>
+      </div>
+
+      <!-- Add Form -->
+      <div class="adm-add-box">
+        <h3>➕ Website Add Karo</h3>
+        <div class="adm-row-3">
+          <div class="form-group">
+            <label for="admCat">Category</label>
+            <select id="admCat" class="form-input">
+              <option value="games">🎮 Games</option>
+              <option value="quiz">🧠 Quiz</option>
+              <option value="comics">💥 Comics</option>
+              <option value="stories">📖 Stories</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="admEmoji">Emoji</label>
+            <input type="text" id="admEmoji" class="form-input" placeholder="🎯" maxlength="4" />
+          </div>
+          <div class="form-group">
+            <label for="admRating">Rating</label>
+            <input type="text" id="admRating" class="form-input" placeholder="4.8" maxlength="5" />
+          </div>
+        </div>
+        <div class="adm-row-2">
+          <div class="form-group">
+            <label for="admName">Website Name <span class="required">*</span></label>
+            <input type="text" id="admName" class="form-input" placeholder="Coolmath Games" maxlength="80" />
+          </div>
+          <div class="form-group">
+            <label for="admVisits">Visits</label>
+            <input type="text" id="admVisits" class="form-input" placeholder="10M+" maxlength="20" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="admUrl">URL <span class="required">*</span></label>
+          <input type="url" id="admUrl" class="form-input" placeholder="https://..." maxlength="500" />
+        </div>
+        <div class="form-group">
+          <label for="admDesc">Description</label>
+          <textarea id="admDesc" class="form-input form-textarea" rows="2" placeholder="Website ke baare mein..." maxlength="300"></textarea>
+        </div>
+        <div class="adm-form-btns">
+          <button class="btn btn-add" id="admAddBtn">✅ Add Website</button>
+          <button class="btn btn-sync" id="admSyncBtn">☁️ Sync Supabase</button>
+          <button class="btn btn-danger-soft" id="admClearBtn">🗑️ Clear All</button>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="adm-tab-bar" role="tablist">
+        <button class="adm-tab active" data-admcat="all">All</button>
+        <button class="adm-tab" data-admcat="games">🎮</button>
+        <button class="adm-tab" data-admcat="quiz">🧠</button>
+        <button class="adm-tab" data-admcat="comics">💥</button>
+        <button class="adm-tab" data-admcat="stories">📖</button>
+      </div>
+
+      <!-- Table -->
+      <div class="adm-table-wrap" role="region" aria-label="Website list">
+        <table class="adm-table" aria-label="Websites">
+          <thead>
+            <tr>
+              <th scope="col">Icon</th>
+              <th scope="col">Name</th>
+              <th scope="col">URL</th>
+              <th scope="col">Cat</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="admTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal-actions" style="margin-top:1rem">
+        <button class="btn btn-ghost" id="adminCloseBtn">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ═══════════════════════════════════
+       SCRIPTS — load order matters
+  ════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
